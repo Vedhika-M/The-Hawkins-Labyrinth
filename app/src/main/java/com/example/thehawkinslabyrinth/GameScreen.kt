@@ -94,11 +94,11 @@ fun GameScreen(
     }
 
     var playerRow by remember {
-        mutableIntStateOf(4)   // Start at bottom row
+        mutableIntStateOf(4)
     }
 
     var playerCol by remember {
-        mutableIntStateOf(0)   // Start at left column
+        mutableIntStateOf(0)
     }
 
     var diceRoll by remember {
@@ -195,7 +195,6 @@ fun GameScreen(
     fun rollDice() {
         if (isRolling) return
         isRolling = true
-
         scope.launch {
                 launch {
                     rotation.snapTo(0f)
@@ -211,13 +210,11 @@ fun GameScreen(
     }
 
     fun moveToCell(row: Int, col: Int) {
-
         if (!gameStarted) {
             gameStarted = true
         }
 
-        val adjacent =
-            (playerRow - row).absoluteValue + (playerCol - col).absoluteValue == 1
+        val adjacent = (playerRow - row).absoluteValue + (playerCol - col).absoluteValue == 1
 
         if (!adjacent) {
             scope.launch {
@@ -249,7 +246,6 @@ fun GameScreen(
         moveHistory.add(Move(playerRow,playerCol,userHP,diceRoll,!cell.isUpsideDown))
 
         if (!cell.isUnlocked.value) {
-
             cell.isUnlocked.value = true
 
             if (Pair(row,col) in immuneCells){
@@ -280,7 +276,6 @@ fun GameScreen(
                     }
                 }else {
                     userHP -= 15
-
                     scope.launch {
                         showRedFlash = true
                         delay(400.milliseconds)
@@ -324,7 +319,6 @@ fun GameScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceAround
         ) {
-
             Row(
                 modifier = Modifier.size(screenWidth, (screenHeight - screenWidth) / 2)
             ) {
@@ -381,30 +375,23 @@ fun GameScreen(
                                 val cell = board[i][j]
                                 val cellColor =Color.DarkGray
                                 ElevatedButton(
-
                                     onClick = {
                                         moveToCell(i, j)
                                         diceRoll = 0
                                     },
-
                                     modifier = Modifier.size(
-                                        screenWidth / 5,
-                                        screenWidth / 5
+                                        screenWidth/5,
+                                        screenWidth/5
                                     ),
-
                                     contentPadding = PaddingValues(0.dp),
-
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = cellColor,
                                         contentColor = Color.Black
                                     ),
-
                                     shape = RectangleShape,
-
                                     elevation = ButtonDefaults.elevatedButtonElevation(
                                         defaultElevation = 5.dp
                                     )
-
                                 ) {
                                     Box(
                                         modifier = Modifier.fillMaxSize(),

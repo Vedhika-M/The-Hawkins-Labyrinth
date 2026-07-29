@@ -12,7 +12,6 @@ fun AppNavigation() {
         navController = navController,
         startDestination = "gamescreen"
     ) {
-
         composable("gamescreen") {
             GameScreen(navController)
         }
@@ -20,10 +19,8 @@ fun AppNavigation() {
         composable(
             route = "gameoverscreen/{userHP}/{vecnaHP}"
         ) { backStackEntry ->
-
             val userHP =
                 backStackEntry.arguments?.getString("userHP")?.toInt() ?: 0
-
             val vecnaHP =
                 backStackEntry.arguments?.getString("vecnaHP")?.toInt() ?: 0
 
